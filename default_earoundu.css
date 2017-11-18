@@ -1,0 +1,44 @@
+p{
+  font-family: "Montserrat";
+  font-weight:bold;
+  font-size: 16px;
+}
+
+pop{
+  font-family: "Montserrat";
+  font-size: 12px;
+}
+
+.column{
+    float: left;
+    width: 75%;
+    padding: 15px;
+}
+
+/* Content */
+h1{
+    font-family: "Roboto";
+    font-weight:bold;
+    font-size: 24px;
+}
+.column {
+    float: left;
+    width: 100%;
+    padding-left: 15px;
+}
+
+.subcolumn {
+    float: left;
+    width: 35%;
+    padding-left: 15px;
+}
+
+.map {
+    position: absolute;
+    width:78%;
+    height: 75%;
+}
+.icon{
+    height: 100%;
+    width: 100%;
+}

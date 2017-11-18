@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+<title>Go Vent Gone</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="gvg_style.css" />
+
+<nav class="w3-sidebar w3-bar-block w3-white w3-collapse w3-top" style="z-index:3;width:250px" id="mySidebar">
+  <div class="w3-container w3-display-container w3-padding-16">
+    <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
+    <h3 class="w3-wide"><b>Go Vent Gone</b></h3>
+  </div>
+  <div class="w3-padding-64 w3-large w3-text-grey" style="font-weight:bold">
+    <a href="#" class="w3-bar-item w3-button">Shirts</a>
+    <a href="#" class="w3-bar-item w3-button">Dresses</a>
+    <a onclick="myAccFunc()" href="javascript:void(0)" class="w3-button w3-block w3-white w3-left-align" id="myBtn">
+      Jeans <i class="fa fa-caret-down"></i>
+    </a>
+    <div id="demoAcc" class="w3-bar-block w3-hide w3-padding-large w3-medium">
+      <a href="#" class="w3-bar-item w3-button w3-light-grey"><i class="fa fa-caret-right w3-margin-right"></i>Skinny</a>
+      <a href="#" class="w3-bar-item w3-button">Relaxed</a>
+      <a href="#" class="w3-bar-item w3-button">Bootcut</a>
+      <a href="#" class="w3-bar-item w3-button">Straight</a>
+    </div>
+    <a href="#" class="w3-bar-item w3-button">Jackets</a>
+    <a href="#" class="w3-bar-item w3-button">Gymwear</a>
+    <a href="#" class="w3-bar-item w3-button">Blazers</a>
+    <a href="#" class="w3-bar-item w3-button">Shoes</a>
+  </div>
+  <a href="#footer" class="w3-bar-item w3-button w3-padding">Contact</a>
+  <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding" onclick="document.getElementById('newsletter').style.display='block'">Newsletter</a>
+  <a href="#footer"  class="w3-bar-item w3-button w3-padding">Subscribe</a>
+</nav>
+
+<head>
+  <style>
+        /*navigate bar*/
+        ul
+        {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #212121;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.19);
+        }
+        li
+        {
+            float: left;
+        }
+        li a
+        {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 8px 16px;
+            text-decoration: none;
+        }
+
+        body
+        {
+          margin: 0;
+        }
+
+        /*left menu & content*/
+        .column
+        {   margin:0px;
+            float: left;
+            padding-left: 10px;
+        }
+        .column.menu
+        {
+            width: 25%;
+        }
+        .column.content
+        {
+            width: 75%;
+        }
+
+
+        /*picture slide*/
+        .mySlides {display:none}
+        .w3-left, .w3-right, .w3-badge {cursor:pointer}
+        .w3-badge {height:13px;width:13px;padding:0}
+
+        </style>
+</head>
+<body>
+
+          <!-- head web !-->
+          <ul>
+            <li><a><img src="picture/gvg_logo.png" height= 32px ></a></li>
+            <li style="float:right"><a href="#"><i class="fa fa-bars" style="color:white"></i></a></li>
+            <li style="float:right"><a href="#"><i class="fa fa-search" style="color:white"></i></a></li>
+          </ul>
+
+          <div class="row">
+              <div class="column menu">
+
+              </div>
+              <div class="column content">
+                <h2>Main Content</h2>
+                <!--slide picture!-->
+                <div class="w3-content w3-display-container" style="max-width:800px">
+                    <img class="mySlides" src="picture/ad_fashion.jpg" style="width:100%">
+                    <img class="mySlides" src="picture/ad_food.jpg" style="width:100%">
+                    <img class="mySlides" src="picture/ad_firework.jpg" style="width:100%">
+                    <div class="w3-center w3-container w3-section w3-large w3-text-white w3-display-bottommiddle" style="width:100%">
+                        <div class="w3-left w3-hover-text-khaki" onclick="plusDivs(-1)">&#10094;</div>
+                        <div class="w3-right w3-hover-text-khaki" onclick="plusDivs(1)">&#10095;</div>
+                        <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(1)"></span>
+                        <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(2)"></span>
+                        <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(3)"></span>
+                    </div>
+                </div>
+
+          </div>
+
+
+
+
+
+
+          <!--slide picture!-->
+          <div class="w3-content w3-display-container" style="margin-left:33%; margin-top:75px; max-width:800px">
+
+          <!--slide picture function!-->
+          <script>
+              var slideIndex = 1;
+              showDivs(slideIndex);
+
+              function plusDivs(n)
+              {
+                showDivs(slideIndex += n);
+              }
+
+              function currentDiv(n)
+              {
+                showDivs(slideIndex = n);
+              }
+
+              function showDivs(n)
+              {
+                var i;
+                var x = document.getElementsByClassName("mySlides");
+                var dots = document.getElementsByClassName("demo");
+                if (n > x.length) {slideIndex = 1}
+                if (n < 1) {slideIndex = x.length}
+                for (i = 0; i < x.length; i++) {
+                   x[i].style.display = "none";
+                }
+                for (i = 0; i < dots.length; i++) {
+                   dots[i].className = dots[i].className.replace(" w3-white", "");
+                }
+                x[slideIndex-1].style.display = "block";
+                dots[slideIndex-1].className += " w3-white";
+              }
+
+          </script>
+
+</body>
+
+</html>

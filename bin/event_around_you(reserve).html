@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<title>Go Vent Gone</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+
+<!-- leaflet -->
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+<link rel="stylesheet" href="./dist/leaflet-routing-machine.css" />
+<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+<script src="./dist/leaflet-routing-machine.js"></script>
+
+<link rel="stylesheet" href="./dist/Control.Geocoder.css" />
+<script src="./dist/Control.Geocoder.js"></script>
+
+<head>
+      <style>
+
+      p{
+        font-family: "Montserrat";
+        font-weight:bold;
+        font-size: 16px;
+      }
+      .column{
+          float: left;
+          width: 75%;
+          padding: 15px;
+      }
+
+
+        /* Content */
+        h1{
+          font-family: "Roboto";
+          font-weight:bold;
+          font-size: 24px;
+        }
+        .column {
+            float: left;
+            width: 100%;
+            padding-left: 15px;
+        }
+
+        .subcolumn {
+            float: left;
+            width: 35%;
+            padding-left: 15px;
+        }
+
+        .map {
+   		     position: absolute;
+   		     width:78%;
+   		     height: 75%;
+   		  }
+        .icon{
+          height: 100%;
+          width: 100%;
+        }
+
+      </style>
+</head>
+
+<body>
+
+<div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:20%;">
+  <a href="main.html"><img src="picture/gvg_logo.png" style="padding-left:15px;padding-top:15px;height:50px;"></a>
+  <br></br>
+  <button class="w3-button w3-block w3-left-align" onclick="myAccFunc()">Explore Event <i class="fa fa-caret-down"></i></button>
+    <div id="demoAcc" class="w3-hide w3-white w3-card">
+      <a href="#" class="w3-bar-item w3-button">&nbsp;&nbsp;&nbsp;&nbsp;Art</a>
+      <a href="#" class="w3-bar-item w3-button">&nbsp;&nbsp;&nbsp;&nbsp;Business</a>
+      <a href="#" class="w3-bar-item w3-button">&nbsp;&nbsp;&nbsp;&nbsp;Community</a>
+      <a href="#" class="w3-bar-item w3-button">&nbsp;&nbsp;&nbsp;&nbsp;Education</a>
+      <a href="#" class="w3-bar-item w3-button">&nbsp;&nbsp;&nbsp;&nbsp;Fashion</a>
+      <a href="#" class="w3-bar-item w3-button">&nbsp;&nbsp;&nbsp;&nbsp;Film &amp; Medias</a>
+      <a href="#" class="w3-bar-item w3-button">&nbsp;&nbsp;&nbsp;&nbsp;Food &amp; Drink</a>
+      <a href="#" class="w3-bar-item w3-button">&nbsp;&nbsp;&nbsp;&nbsp;Health</a>
+      <a href="#" class="w3-bar-item w3-button">&nbsp;&nbsp;&nbsp;&nbsp;Music</a>
+      <a href="#" class="w3-bar-item w3-button">&nbsp;&nbsp;&nbsp;&nbsp;Science &amp; Technology</a>
+      <a href="#" class="w3-bar-item w3-button">&nbsp;&nbsp;&nbsp;&nbsp;Sport &amp; Fitness</a>
+    </div>
+  <a href="event_around_you.html" class="w3-bar-item w3-button">Event around you</a>
+  <a href="#" class="w3-bar-item w3-button">Free ticket event</a>
+  <a href="#" class="w3-bar-item w3-button">Selected event</a>
+  <a href="#" class="w3-bar-item w3-button">History</a>
+</div>
+
+<div style="margin-left:20%;">
+  <div class="column">
+    <h1>Event around you<h1>
+    <hr width="98%">
+  <div id="map"class="map"> </div>
+
+  </div>
+</div>
+
+
+
+
+
+<script>
+
+initmap();
+
+//Map//
+//Insert your code here
+function initmap() {
+  var map = L.map('map').setView([13.751908, 100.539029], 13);
+  //initialize tile layer and add it to map
+  L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png',{attribution: '© OpenStreetMap contributors'  }).addTo(map);
+
+  var musicFest= L.marker([13.752, 100.495],{icon: L.icon({iconSize: [50,50],iconAnchor: [15,15],iconUrl: 'picture/event_music.png'})}).bindPopup("Music Festival"),
+      musicJazz= L.marker([13.752, 100.4886],{icon: L.icon({iconSize: [50,50],iconAnchor: [15,15],iconUrl: 'picture/event_music.png'})}).bindPopup("Jazz Music Concert"),
+      midnightSale = L.marker([13.730882, 100.442731],{icon: L.icon({iconSize: [50,50],iconAnchor: [15,15],iconUrl: 'picture/event_sale.png'})}).bindPopup("Central Midnight Sale"),
+      foodFestival = L.marker([13.786513, 100.467724],{icon: L.icon({iconSize: [50,50],iconAnchor: [15,15],iconUrl: 'picture/event_food.png'})}).bindPopup("Food Festival");
+
+  var music = L.layerGroup([musicFest, musicJazz]);
+  var sale = L.layerGroup([midnightSale]);
+  var food = L.layerGroup([foodFestival]);
+
+  // set up the map
+  map = new L.Map('map', {zoom: 16,layers:[music,sale,food]});
+
+  var overlayMaps = { "Music": music,"Sale": sale,"Food": food};
+  L.control.layers(overlayMaps).addTo(map);
+
+  var control = L.Routing.control({
+     //Customer marker icon
+     showAlternatives: true,
+     altLineOptions:{styles: [{color: 'blue', opacity: 0.5, weight: 9}] },
+     // serviceUrl: ' http://203.131.209.91:5000/route/v1',
+     routeWhileDragging: true,
+     //Reversing the route
+     reverseWaypoints: true,
+     useZoomParameter: true,
+     geocoder: L.Control.Geocoder.nominatim()
+  }).addTo(map);
+
+  control.on('routesfound', function(e){
+   var distance = e.routes[0].summary.totalDistance;
+   var time = e.routes[0].summary.totalTime;
+   alert(distance);
+  });
+}
+
+function locateUser(){
+  this.map.locate({setView:true});
+}
+
+///////////////////////////////////////////////////////////////////////////////
+
+//Accordion menu//
+function myAccFunc(){
+    var x = document.getElementById("demoAcc");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+        x.previousElementSibling.className += " w3-show";
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+        x.previousElementSibling.className =
+        x.previousElementSibling.className.replace(" w3-show", "");
+    }
+}
+///////////////////////////////////////////////////////////////////////////////
+</script>
+
+</body>
+</html>
